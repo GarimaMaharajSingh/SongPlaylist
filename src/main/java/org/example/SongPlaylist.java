@@ -8,16 +8,15 @@ class SongPlaylist {
         Scanner inputS=new Scanner(System.in);// this will be used for String
 
         while (true) {
-            System.out.println("************ Song Playlist ************");
+            System.out.println("\nPlaylist Operations:\n");
             System.out.println("1. Add a song to the playlist");
             System.out.println("2. Delete a song from the playlist");
             System.out.println("3. Find a song by name");
             System.out.println("4. Next track / Previous track");
             System.out.println("5. Sort playlist by song title");
             System.out.println("6. Display playlist");
-            System.out.println("7. Exit");
-            System.out.println("***************************************");
-            System.out.print("Enter your choice: ");
+            System.out.println("7. Exit\n");
+            System.out.print("Enter Menu Option:");
             int choice = input.nextInt();
 
             switch (choice) {
@@ -31,15 +30,15 @@ class SongPlaylist {
                 case 2:
                     System.out.print("Enter the position of the song to delete: ");
                     int position = input.nextInt();
-                    playlist.deleteSong(position);
+                    playlist.deleteAtPos(position);
                     break;
                 case 3:
-                    System.out.print("Enter the song name to find: ");
+                    System.out.print("Enter the Name of the Song: ");
                     //scanner.nextLine();  // Consume the newline character
                     String songName = inputS.nextLine();
                     int position1 = playlist.findSong(songName);
                     if (position1 != -1) {
-                        System.out.println("Song found at position: " + position1);
+                        System.out.println("The Song is present at position " + position1);
                     }
                     break;
                 case 4:
@@ -48,10 +47,10 @@ class SongPlaylist {
                     playlist.playNextTrack(start);
                     break;
                 case 5:
-                    playlist.sortPlaylist();
+                    playlist.sortList();
                     break;
                 case 6:
-                    playlist.displayPlaylist();
+                    playlist.display();
                     break;
                 case 7:
                     System.out.println("Exiting...");

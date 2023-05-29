@@ -16,9 +16,9 @@ public class LinkedList {
         return head == null;
     }
 
-    public void addSong(String title, String duration) {
+    public void addSong(String t, String dur) {
         // Parse the duration into minutes and seconds
-        String[] durationParts = duration.split(":");
+        String[] durationParts = dur.split(":");
         if (durationParts.length != 2) {
             System.out.println("Invalid duration format. Please try again.");
             return;
@@ -36,7 +36,7 @@ public class LinkedList {
         int durationInSeconds = minutes * 60 + seconds;
 
         // Create the new song and add it to the playlist
-        Node node = new Node(title, durationInSeconds);
+        Node node = new Node(t, durationInSeconds);
 
         if (isEmpty()) {
             head = node;
@@ -48,26 +48,26 @@ public class LinkedList {
         }
 
         size++;
-        System.out.println("Added the song '" + title + "' to the playlist.");
+        System.out.println("Added the song '" + t + "' to the playlist.");
     }
 
-    public void deleteSong(int position) {
+    public void deleteAtPos(int pos) {
         if (isEmpty()) {
             System.out.println("Playlist is empty.");
             return;
         }
 
-        if (position < 1 || position > size) {
+        if (pos < 1 || pos > size) {
             System.out.println("Invalid position.");
             return;
         }
 
-        if (position == 1) {
+        if (pos == 1) {
             head = head.getNext();
             if (head != null) {
                 head.setPrev(null);
             }
-        } else if (position == size) {
+        } else if (pos == size) {
             tail = tail.getPrev();
             if (tail != null) {
                 tail.setNext(null);
@@ -76,7 +76,7 @@ public class LinkedList {
             Node current = head;
             int count = 1;
 
-            while (count < position) {
+            while (count < pos) {
                 current = current.getNext();
                 count++;
             }
@@ -89,7 +89,7 @@ public class LinkedList {
         System.out.println("Song deleted from the playlist.");
     }
 
-    public int findSong(String songName) {
+    public int findSong(String t) {
         if (isEmpty()) {
             System.out.println("Playlist is empty.");
             return -1;
@@ -99,7 +99,7 @@ public class LinkedList {
         int position = 1;
 
         while (current != null) {
-            if (current.getTitle().equalsIgnoreCase(songName)) {
+            if (current.getTitle().equalsIgnoreCase(t)) {
                 return position;
             }
 
@@ -155,6 +155,9 @@ public class LinkedList {
                     System.out.println("Reached the beginning of the playlist.");
                     break;
                 }
+            } else if (!input.equalsIgnoreCase("e")) {
+                System.out.println("Invalid input.");
+                continue;
             }
 
             System.out.println("Current Song is " + position + ". " + current.getTitle());
@@ -204,13 +207,16 @@ public class LinkedList {
                     System.out.println("Reached the beginning of the playlist.");
                     break;
                 }
+            } else if (!input.equalsIgnoreCase("e")) {
+                System.out.println("Invalid input.");
+                continue;
             }
 
             System.out.println("Current Song is " + position + ". " + current.getTitle());
         } while (!input.equalsIgnoreCase("e"));
     }
 
-    public void sortPlaylist() {
+    public void sortList() {
         if (isEmpty() || head == tail) {
             // No need to sort an empty list or a list with only one song
             return;
@@ -286,7 +292,7 @@ public class LinkedList {
         return slow;
     }
 
-    public void displayPlaylist() {
+    public void display() {
         if (isEmpty()) {
             System.out.println("Playlist is empty.");
             return;
@@ -294,17 +300,18 @@ public class LinkedList {
 
         System.out.println("************ Playlist ************");
         Node current = head;
-        int count = 1;
+        int position = 1;
 
         while (current != null) {
             int minutes = current.getDuration() / 60;
             int seconds = current.getDuration() % 60;
 
-            System.out.println(count + ". " + current.getTitle() + " <" + minutes + ":" + String.format("%02d", seconds) + ">");
+            System.out.println(position + ". " + current.getTitle() + " <" + minutes + ":" + String.format("%02d", seconds) + ">");
 
             current = current.getNext();
-            count++;
+            position++;
         }
+        System.out.println("Total number of songs in the playlist: "+(position-1));
         System.out.println("**********************************");
     }
 
