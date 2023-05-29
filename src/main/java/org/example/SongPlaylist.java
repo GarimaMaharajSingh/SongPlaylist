@@ -29,8 +29,15 @@ class SongPlaylist {
                     break;
                 case 2:
                     System.out.print("Enter the position of the song to delete: ");
-                    int position = input.nextInt();
-                    playlist.deleteAtPos(position);
+//                    int position = input.nextInt();
+//                    playlist.deleteAtPos(position);
+                    try {
+                        String x = inputS.nextLine();
+                        int position = Integer.parseInt(x);
+                        playlist.deleteAtPos(position);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input.");
+                    }
                     break;
                 case 3:
                     System.out.print("Enter the Name of the Song: ");
