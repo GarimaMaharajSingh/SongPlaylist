@@ -153,6 +153,7 @@ public class LinkedList {
                     position--;
                 } else {
                     System.out.println("Reached the beginning of the playlist.");
+                    if (current == null) System.out.println("Reached the beginning of the playlist.");
                     break;
                 }
             } else if (!input.equalsIgnoreCase("e")) {
@@ -205,6 +206,7 @@ public class LinkedList {
                     position--;
                 } else {
                     System.out.println("Reached the beginning of the playlist.");
+                    if(current == null) System.out.println("Reached the beginning of the playlist.");
                     break;
                 }
             } else if (!input.equalsIgnoreCase("e")) {
