@@ -55,6 +55,7 @@ class SongPlaylist {
                     break;
                 case 5:
                     playlist.sortList();
+                    playlist.display();
                     break;
                 case 6:
                     playlist.display();
