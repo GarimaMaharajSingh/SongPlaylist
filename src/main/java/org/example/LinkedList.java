@@ -19,6 +19,11 @@ public class LinkedList {
 
     public void addSong(String t, String dur) {
 
+        if (findSong(t) != -1) {
+            System.out.println("The song '" + t + "' already exists in the playlist.");
+            return;
+        }
+
         // Parse the duration into minutes and seconds
         String[] durationParts = dur.split(":");
         if (durationParts.length != 2) {
@@ -40,10 +45,13 @@ public class LinkedList {
         // Create the new song and add it to the playlist
         Node node = new Node(t, durationInSeconds);
 
+        //Check if the playlist is empty
         if (isEmpty()) {
+            //Set the new song as both head and tail
             head = node;
             tail = node;
         } else {
+            // Add the new song at the end of the playlist
             tail.setNext(node);
             node.setPrev(tail);
             tail = node;
