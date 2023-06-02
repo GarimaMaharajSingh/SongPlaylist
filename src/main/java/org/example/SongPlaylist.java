@@ -1,4 +1,5 @@
 package org.example;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class SongPlaylist {
@@ -23,6 +24,11 @@ class SongPlaylist {
                 case 1:
                     System.out.print("Enter Song Title: ");
                     String title = inputS.nextLine();
+                    while(title.isBlank() || title==(String)" ")
+                    {
+                        System.out.println("Invalid title. Enter Song Title again: ");
+                        title = inputS.nextLine();
+                    }
                     System.out.print("Enter Song Duration (mm:ss): ");
                     String duration = inputS.nextLine();
                     playlist.addSong(title, duration);
@@ -50,8 +56,8 @@ class SongPlaylist {
                     break;
                 case 4:
                     System.out.print("Enter a track number to start from: ");
-                    int start = input.nextInt();
-                    playlist.playNextTrack(start);
+                    String start = inputS.nextLine();
+                    playlist.playTrack(start);
                     break;
                 case 5:
                     playlist.sortList();

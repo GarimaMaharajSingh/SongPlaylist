@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class LinkedList {
@@ -17,6 +18,7 @@ public class LinkedList {
     }
 
     public void addSong(String t, String dur) {
+
         // Parse the duration into minutes and seconds
         String[] durationParts = dur.split(":");
         if (durationParts.length != 2) {
@@ -83,6 +85,7 @@ public class LinkedList {
 
             current.getPrev().setNext(current.getNext());
             current.getNext().setPrev(current.getPrev());
+            current = null;
         }
 
         size--;
@@ -112,60 +115,16 @@ public class LinkedList {
     }
 
 
-    public void playNextTrack(int start) {
-        if (isEmpty()) {
-            System.out.println("Playlist is empty.");
-            return;
-        }
+    public void playTrack(String start1) {
 
-        if (start < 1 || start > size) {
-            System.out.println("Invalid starting position.");
-            return;
-        }
-
-        Node current = head;
-        int position = 1;
-
-        while (position < start) {
-            current = current.getNext();
-            position++;
-        }
-
-        System.out.println("Current Song is " + position + ". " + current.getTitle());
-
-        Scanner scanner = new Scanner(System.in);
-        String input;
-        do {
-            System.out.print("Enter 'n' for Next Track, 'p' for Previous Track, 'e' to exit: ");
-            input = scanner.nextLine();
-
-            if (input.equalsIgnoreCase("n")) {
-                if (current.getNext() != null) {
-                    current = current.getNext();
-                    position++;
-                } else {
-                    System.out.println("Reached the end of the playlist.");
-                    break;
-                }
-            } else if (input.equalsIgnoreCase("p")) {
-                if (current.getPrev() != null) {
-                    current = current.getPrev();
-                    position--;
-                } else {
-                    System.out.println("Reached the beginning of the playlist.");
-                    if (current == null) System.out.println("Reached the beginning of the playlist.");
-                    break;
-                }
-            } else if (!input.equalsIgnoreCase("e")) {
-                System.out.println("Invalid input.");
-                continue;
-            }
-
-            System.out.println("Current Song is " + position + ". " + current.getTitle());
-        } while (!input.equalsIgnoreCase("e"));
+        int start;
+        try{
+            start = Integer.parseInt(start1);
+        }  catch (NumberFormatException e){
+        System.out.println("Invalid track to start from. Please try again.");
+        return;
     }
 
-    public void playPreviousTrack(int start) {
         if (isEmpty()) {
             System.out.println("Playlist is empty.");
             return;
@@ -188,34 +147,38 @@ public class LinkedList {
 
         Scanner scanner = new Scanner(System.in);
         String input;
-        do {
-            System.out.print("Enter 'n' for Next Track, 'p' for Previous Track, 'e' to exit: ");
-            input = scanner.nextLine();
+            do {
+                System.out.print("Enter 'n' for Next Track, 'p' for Previous Track, 'e' to exit: ");
+                input = scanner.nextLine();
 
-            if (input.equalsIgnoreCase("n")) {
-                if (current.getNext() != null) {
-                    current = current.getNext();
-                    position++;
-                } else {
-                    System.out.println("Reached the end of the playlist.");
-                    break;
-                }
-            } else if (input.equalsIgnoreCase("p")) {
-                if (current.getPrev() != null) {
-                    current = current.getPrev();
-                    position--;
-                } else {
-                    System.out.println("Reached the beginning of the playlist.");
-                    if(current == null) System.out.println("Reached the beginning of the playlist.");
-                    break;
-                }
-            } else if (!input.equalsIgnoreCase("e")) {
-                System.out.println("Invalid input.");
-                continue;
-            }
+                if (input.equalsIgnoreCase("n")) {
+                    if (current.getNext() != null) {
+                        current = current.getNext();
+                        position++;
+                    } else {
+                        System.out.println("Reached the end of the playlist.");
+                        System.out.println("Current Song is " + position + ". " + current.getTitle());
+                        break;
+                    }
+                } else if (input.equalsIgnoreCase("p")) {
+                    if (current.getPrev() != null) {
+                        current = current.getPrev();
+                        position--;
+                        System.out.println("if of 'p'");
 
-            System.out.println("Current Song is " + position + ". " + current.getTitle());
-        } while (!input.equalsIgnoreCase("e"));
+                    } else {
+                        System.out.println("Reached the beginning of the playlist.");
+                        // if (current == null) System.out.println("Reached the beginning of the playlist.");
+                        System.out.println("Current Song is " + position + ". " + current.getTitle());
+                        break;
+                    }
+                } else if (!input.equalsIgnoreCase("e")) {
+                    System.out.println("Invalid input.");
+                    continue;
+                }
+
+                System.out.println("Current Song is " + position + ". " + current.getTitle());
+            } while (!input.equalsIgnoreCase("e"));
     }
 
     public void sortList() {
