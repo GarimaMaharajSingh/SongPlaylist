@@ -19,7 +19,7 @@ public class LinkedList {
 
     public void addSong(String t, String dur) {
 
-        if (findSong(t) != -1) {
+        if (findDuplicate(t) != -1) {
             System.out.println("The song '" + t + "' already exists in the playlist.");
             return;
         }
@@ -59,6 +59,20 @@ public class LinkedList {
 
         size++;
         System.out.println("Added the song '" + t + "' to the playlist.");
+    }
+
+    public int findDuplicate(String t) {
+        Node current = head;
+        int position = 1;
+
+        while (current != null) {
+            if (current.getTitle().equalsIgnoreCase(t)) {
+                return position;
+            }
+            current = current.getNext();
+            position++;
+        }
+        return -1;
     }
 
     public void deleteAtPos(int pos) {
