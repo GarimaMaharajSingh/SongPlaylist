@@ -1,9 +1,9 @@
 package org.example;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class SongPlaylist {
     public static void main(String[] args) {
+
         LinkedList playlist = new LinkedList();
         Scanner input = new Scanner(System.in);
         Scanner inputS = new Scanner(System.in);// this will be used for String
@@ -37,8 +37,6 @@ class SongPlaylist {
                         break;
                     case 2:
                         System.out.print("Enter the position of the song to delete: ");
-//                    int position = input.nextInt();
-//                    playlist.deleteAtPos(position);
                         try {
                             String x = inputS.nextLine();
                             int position = Integer.parseInt(x);
