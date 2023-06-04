@@ -77,8 +77,6 @@ public class LinkedList {
     public void deleteAtPos(int pos) {
         int mid = size/2;
 
-
-
         if (isEmpty()) {
             System.out.println("Playlist is empty.");
             return;
@@ -88,8 +86,6 @@ public class LinkedList {
             System.out.println("Invalid position.");
             return;
         }
-
-
 
         if (pos == 1) {
             head = head.getNext();
@@ -102,19 +98,34 @@ public class LinkedList {
                 tail.setNext(null);
             }
         }
-        else {
-            Node current = head;
-            int count = 1;
+        else{
+            if(pos> mid){
+                Node current = tail;
+                int count = size;
 
-            while (count < pos) {
-                current = current.getNext();
-                count++;
+                while (count > pos) {
+                    current = current.getPrev();
+                    count--;
+                }
+
+                current.getNext().setPrev(current.getPrev());
+                current.getPrev().setNext(current.getNext());
+                current = null;
             }
+            else{
+                Node current = head;
+                int count = 1;
 
-            current.getPrev().setNext(current.getNext());
-            current.getNext().setPrev(current.getPrev());
-            current = null;
-        }
+                while (count < pos) {
+                    current = current.getNext();
+                    count++;
+                }
+
+                current.getPrev().setNext(current.getNext());
+                current.getNext().setPrev(current.getPrev());
+                current = null;
+            }
+            }
 
         size--;
         System.out.println("Song deleted from the playlist.");
